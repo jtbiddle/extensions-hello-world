@@ -20,7 +20,6 @@ const path = require('path');
 const Boom = require('boom');
 const color = require('color');
 const ext = require('commander');
-const http = require('http');
 const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
 
@@ -42,11 +41,6 @@ const bearerPrefix = 'Bearer ';             // HTTP authorization headers have t
 const colorWheelRotation = 30;
 const channelColors = {};
 const channelCooldowns = {};                // rate limit compliance
-var fx = require('./fx.json');
-var palettes = require('./palettes.json');
-
-const host = '192.168.0.203';
-
 let userCooldowns = {};                     // spam prevention
 
 const STRINGS = {
@@ -105,7 +99,8 @@ const server = new Hapi.Server(serverOptions);
     config:{
       handler: colorCycleHandler,
         payload:{
-          output: 'data'
+          output: 'data',
+          parse:true
         }
     }
   });
@@ -116,21 +111,6 @@ const server = new Hapi.Server(serverOptions);
     path: '/color/query',
     handler: colorQueryHandler,
   });
-
-    // Handle a new viewer requesting the color.
-    server.route({
-      method: 'GET',
-      path: '/color/palettes',
-      handler: getPaletteHandler,
-    });
-
-    // Handle a new viewer requesting the color.
-    server.route({
-      method: 'GET',
-      path: '/color/fx',
-      handler: getFxHandler,
-    });
-  
 
   // Start the server.
   await server.start();
@@ -197,40 +177,15 @@ function colorCycleHandler(req) {
   verboseLog(STRINGS.cyclingColor, channelId, opaqueUserId);
 
   currentColor = req.payload.color;
-  currentPalette = req.payload.palette;
-  currentFx= req.payload.fx;
-
-  verboseLog("Current color is " + currentColor);
-  verboseLog("Current Palette is " + currentPalette);
-  verboseLog("Current Fx is " + currentFx);
 
   // Save the new color for the channel.
   channelColors[channelId] = currentColor;
 
   // Broadcast the color change to all other extension instances on this channel.
-  //attemptColorBroadcast(channelId);
-  setLights(currentColor, currentPalette, currentFx);
+  attemptColorBroadcast(channelId);
+
   return currentColor;
 }
-
-function getPaletteHandler(req) {
-  // Verify all requests.
-  const payload = verifyAndDecode(req.headers.authorization);
-  // Get the color for the channel from the payload and return it.
-  const { channel_id: channelId, opaque_user_id: opaqueUserId } = payload;
-  //verboseLog(JSON.stringify(palettes, null, 2));
-  return JSON.stringify(palettes);
-}
-
-function getFxHandler(req) {
-  // Verify all requests.
-  const payload = verifyAndDecode(req.headers.authorization);
-  // Get the color for the channel from the payload and return it.
-  const { channel_id: channelId, opaque_user_id: opaqueUserId } = payload;
-  //verboseLog(JSON.stringify(fx, null, 2));
-  return JSON.stringify(fx);
-}
-
 
 function colorQueryHandler(req) {
   // Verify all requests.
@@ -289,54 +244,6 @@ function sendColorBroadcast(channelId) {
       }
     });
 }
-//convert a hex color to R, G, and B
-function hexToRgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
-  } : null;
-}
-
-//Set light color/palette and effect
-function setLights(color, palette, effect)
-{
-  var options = {
-    host: host,
-    path: `/win`
-  };
-
-  if(palette){
-    options.path += `&FP=${palette}`;
-  }
-
-  else if(color){
-      var rgb = hexToRgb(color);
-      options.path += `&R=${rgb.r}&G=${rgb.g}&B=${rgb.b}`;
-  }
-
-  if(effect){
-    options.path += `&FX=${effect}`;
-  }  
-  http.request(options, callback).end();
-}
-
-//HTTP packet to wled callback
-var callback = function(response) {
-  var str = '';
-
-  //another chunk of data has been received, so append it to `str`
-  response.on('data', function (chunk) {
-    str += chunk;
-  });
-
-  //the whole response has been received, so we just print it out here
-  response.on('end', function () {
-    console.log(str);
-  });
-}
-
 
 // Create and return a JWT for use by this service.
 function makeServerToken(channelId) {

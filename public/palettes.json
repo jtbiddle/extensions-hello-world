@@ -1,0 +1,255 @@
+[{
+	"index": 0	,
+	"name": "Default",
+	"description": "The palette is automatically selected depending on the effect. For most effects, this is the primary color"
+},
+{
+	"index": 1	,
+	"name": "Random Cycle",
+	"description": "The palette changes to a random one every few seconds. Subject to change"
+},
+{
+	"index": 2	,
+	"name": "Primary color",
+	"description": "A palette consisting only of the primary color"
+},
+{
+	"index": 3	,
+	"name": "Based on primary",
+	"description": "Consists of the primary color, as well as a slightly desaturated version and black"
+},
+{
+	"index": 4	,
+	"name": "Set colors",
+	"description": "A palette which is a mixture of all segment colors"
+},
+{
+	"index": 5	,
+	"name": "Based on set",
+	"description": "Contains primary, secondary colors and a desaturated version"
+},
+{
+	"index": 6	,
+	"name": "Party",
+	"description": "Rainbow without green hues"
+},
+{
+	"index": 7	,
+	"name": "Cloud",
+	"description": "Gray-blueish colors"
+},
+{
+	"index": 8	,
+	"name": "Lava",
+	"description": "Dark red, yellow and bright white"
+},
+{
+	"index": 9	,
+	"name": "Ocean",
+	"description": "Blue, teal and white colors"
+},
+{
+	"index": 10,
+	"name": "Forest",
+	"description": "Yellow and green hues"
+},
+{
+	"index": 11,
+	"name": "Rainbow",
+	"description": "Every hue"
+},
+{
+	"index": 12,
+	"name": "Rainbow bands",
+	"description": "Rainbow colors with black spots in-between"
+},
+{
+	"index": 13,
+	"name": "Sunset",
+	"description": "Dark blue with purple, red and yellow hues"
+},
+{
+	"index": 14,
+	"name": "Rivendell",
+	"description": "Desaturated greens"
+},
+{
+	"index": 15,
+	"name": "Breeze",
+	"description": "Teal colors with varying brightness"
+},
+{
+	"index": 16,
+	"name": "Red & Blue",
+	"description": "Red running on blue"
+},
+{
+	"index": 17,
+	"name": "Yellowout",
+	"description": "Yellow, fading out"
+},
+{
+	"index": 18,
+	"name": "Analoguous",
+	"description": "Red running on blue"
+},
+{
+	"index": 19,
+	"name": "Splash",
+	"description": "Vibrant pink and magenta"
+},
+{
+	"index": 20,
+	"name": "Pastel",
+	"description": "Different hues with very little saturation"
+},
+{
+	"index": 21,
+	"name": "Sunset 2",
+	"description": "Yellow and white runnung on dim blue"
+},
+{
+	"index": 22,
+	"name": "Beech",
+	"description": "Different shades of light blue"
+},
+{
+	"index": 23,
+	"name": "Vintage",
+	"description": "Warm white running on very dim red"
+},
+{
+	"index": 24,
+	"name": "Departure",
+	"description": "Greens and white fading out"
+},
+{
+	"index": 25,
+	"name": "Landscape",
+	"description": "Blue, white and green gradient"
+},
+{
+	"index": 26,
+	"name": "Beach",
+	"description": "Teal and yellow gradient fading out"
+},
+{
+	"index": 27,
+	"name": "Sherbet",
+	"description": "Bright white, pink and mint colors"
+},
+{
+	"index": 28,
+	"name": "Hult",
+	"description": "White, magenta and teal"
+},
+{
+	"index": 29,
+	"name": "Hult 64",
+	"description": "Teal and yellow hues"
+},
+{
+	"index": 30,
+	"name": "Drywet",
+	"description": "Blue and yellow gradient"
+},
+{
+	"index": 31,
+	"name": "Jul",
+	"description": "Pastel green and red"
+},
+{
+	"index": 32,
+	"name": "Grintage",
+	"description": "Yellow fading out"
+},
+{
+	"index": 33,
+	"name": "Rewhi",
+	"description": "Bright orange on desaturated purple"
+},
+{
+	"index": 34,
+	"name": "Tertiary",
+	"description": "Red, green and blue gradien"
+},
+{
+	"index": 35,
+	"name": "Fire",
+	"description": "White, yellow and fading red gradient"
+},
+{
+	"index": 36,
+	"name": "Icefire",
+	"description": "Same as Fire, but with blue colors"
+},
+{
+	"index": 37,
+	"name": "Cyane",
+	"description": "Desaturated pastel colors"
+},
+{
+	"index": 38,
+	"name": "Light Pink",
+	"description": "Desaturated purple hues"
+},
+{
+	"index": 39,
+	"name": "Autumn",
+	"description": "Three white fields surrounded by yellow and dim red"
+},
+{
+	"index": 40,
+	"name": "Magenta",
+	"description": "White with magenta and blue"
+},
+{
+	"index": 41,
+	"name": "Magred",
+	"description": "Magenta and red hues"
+},
+{
+	"index": 42,
+	"name": "Yelmag",
+	"description": "Magenta and red hues with a yellow"
+},
+{
+	"index": 43,
+	"name": "Yelblu",
+	"description": "Blue with a little yellow"
+},
+{
+	"index": 44,
+	"name": "Orange & Teal",
+	"description": "An Orange - Gray - Teal gradient"
+},
+{
+	"index": 45,
+	"name": "Tiamat",
+	"description": "A bright meteor with blue, teal and magenta hues"
+},
+{
+	"index": 46,
+	"name": "April Night",
+	"description": "Dark blue background with colorful snowflakes"
+},
+{
+	"index": 47,
+	"name": "Orangery",
+	"description": "Orange and yellow tones"
+},
+{
+	"index": 48,
+	"name": "C9",
+	"description": "Christmas lights palette. Red - amber - green - blue"
+},
+{
+	"index": 49,
+	"name": "Sakura",
+	"description": "Pink and rose tones"
+},
+{
+	"index": 50,
+	"name": "Aurora",
+	"description": "Greens on dark blue"
+}]

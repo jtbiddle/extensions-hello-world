@@ -1,14 +1,25 @@
 var token = "";
 var tuid = "";
 var ebs = "";
-
 // because who wants to type this every time?
 var twitch = window.Twitch.ext;
 
 // create the request options for our Twitch API calls
 var requests = {
     set: createRequest('POST', 'cycle'),
-    get: createRequest('GET', 'query')
+    get: createRequest('GET', 'query'),
+    getPalettes : {
+        type: 'GET',
+        url: location.protocol + '//localhost:8081/color/palettes',
+        success: updatePalettes,
+        error: logError
+    },
+    getFx : {
+        type: 'GET',
+        url: location.protocol + '//localhost:8081/color/fx',
+        success: updateFx,
+        error: logError
+    }
 };
 
 function createRequest(type, method) {
@@ -19,7 +30,7 @@ function createRequest(type, method) {
         success: updateBlock,
         error: logError
     }
-}
+}  
 
 function setAuth(token) {
     Object.keys(requests).forEach((req) => {
@@ -39,14 +50,42 @@ twitch.onAuthorized(function(auth) {
 
     // enable the button
     $('#cycle').removeAttr('disabled');
+    $('#palette-dropdown').removeAttr('disabled');
+    $('#palette-dropdown').append('<option selected="true" disabled>Color Palette</option>');
+    $('#palette-dropdown').prop('selectedIndex', 0);
+
+    $('#fx-dropdown').removeAttr('disabled');
+    $('#fx-dropdown').append('<option selected="true" disabled>Light Effect</option>');
+    $('#fx-dropdown').prop('selectedIndex', 0);
 
     setAuth(token);
     $.ajax(requests.get);
+
+    $.ajax(requests.getPalettes);
+    $.ajax(requests.getFx);
 });
 
 function updateBlock(hex) {
     twitch.rig.log('Updating block color');
     $('#color').css('background-color', hex);
+}
+
+function updatePalettes(paletteList){
+    palettes = JSON.parse(paletteList);
+    //twitch.rig.log(palettes);
+
+    $.each(palettes, function(key, value) {
+        $('#palette-dropdown').append($('<option/>').attr("value", value.index).text(value.name));
+    });
+}
+
+function updateFx(fxList){
+    fx = JSON.parse(fxList);
+    //twitch.rig.log(fx);
+
+    $.each(fx, function(key, value) {
+        $('#fx-dropdown').append($('<option/>').attr("value", value.index).text(value.name));
+    });
 }
 
 function logError(_, error, status) {
@@ -60,11 +99,20 @@ function logSuccess(hex, status) {
 }
 
 $(function() {
-
     // when we click the cycle button
     $('#cycle').click(function() {
         if(!token) { return twitch.rig.log('Not authorized'); }
         twitch.rig.log('Requesting a color cycle');
+
+        var paletteNum = $('#palette-dropdown').val();
+        var fxNum = $('#fx-dropdown').val();
+
+        twitch.rig.log('Sending palette #' + paletteNum + " FX #" + fxNum);
+
+        data = {color: $(colorPicker).val(), palette: paletteNum, fx: fxNum};
+        //data = {fx: $(fx-dropdown).val()};
+        twitch.rig.log(data);
+        requests['set'].data = data;
         $.ajax(requests.set);
     });
 
